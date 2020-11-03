@@ -5,7 +5,7 @@ app = Flask(__name__)
 def welcome_world():
     return '''<html>
     	<h1>
-    		Hello!
+    		Welcome!
     	</h1>
     	<p>
     		This is where you welcome the user. 
@@ -21,7 +21,7 @@ def goodbye_world():
     return '''
     <html>
     	<h1>
-    		Farmworker Advocacy and Community Groups
+    		Data on Farmworker Advocacy and Community Groups
     	</h1>
     	<p>
     		Groups by EPA Region
