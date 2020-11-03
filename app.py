@@ -1,35 +1,29 @@
-from flask import Flask
+from flask import Flask, request
+import jinja2
+
 app = Flask(__name__)
 
 @app.route('/')
-def welcome_world():
-    return '''<html>
-    	<h1>
-    		Welcome!
-    	</h1>
-    	<p>
-    		This is where you welcome the user. 
-    	</p>
-    	<form action="/map">
-    		<input type="submit" value="View Map" />
-		</form>
-    </html>
-    '''
+def index():
+    # Render template
+    templateLoader = jinja2.FileSystemLoader(searchpath="./assets")
+    templateEnv = jinja2.Environment(loader=templateLoader)
+    template = templateEnv.get_template("index.html")
+    output = template.render()
 
-@app.route('/map')
-def goodbye_world():
-    return '''
-    <html>
-    	<h1>
-    		Data on Farmworker Advocacy and Community Groups
-    	</h1>
-    	<p>
-    		Groups by EPA Region
-    	</p>
-    	<form action="/">
-    		<input type="submit" value="Go Back" />
-		</form>
-		<iframe src='https://www.arcgis.com/home/webmap/viewer.html?webmap=41281c51f9de45edaf1c8ed44bb10e30' width="100%" height="90%"></iframe>
-    </html>
-    '''
+    return output
+
+
+@app.route('/groups')
+def groups():
+    # Get group query parameter
+    group = request.args.get("group")
+
+    # Render template with map parameter
+    templateLoader = jinja2.FileSystemLoader(searchpath="./assets")
+    templateEnv = jinja2.Environment(loader=templateLoader)
+    template = templateEnv.get_template("groups.html")
+    output = template.render(group=group)
+
+    return output
 
